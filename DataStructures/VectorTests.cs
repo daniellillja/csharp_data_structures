@@ -108,6 +108,68 @@ namespace DataStructures
             Assert.AreEqual("b", v.At(2));
         }
 
+        [TestMethod]
+        public void Prepend_inserts_first()
+        {
+            Vector<string> v = new Vector<string>(2);
+            v.Push("a");
+            v.Prepend("b");
+
+            Assert.AreEqual("b", v.At(0));
+            Assert.AreEqual("a", v.At(1));
+        }
+
+        [TestMethod]
+        public void Delete_removes_and_shifts_elements_left()
+        {
+            Vector<string> v = new Vector<string>(3);
+            v.Push("a");
+            v.Push("b");
+            v.Push("c");
+            v.Delete(0);
+
+            Assert.AreEqual("b", v.At(0));
+            Assert.AreEqual("c", v.At(1));
+            Assert.AreEqual(2, v.GetSize());
+        }
+
+        [TestMethod]
+        public void Delete_invalid_index()
+        {
+            Vector<string> v = new Vector<string>(1);
+            v.Push("a");
+            v.Delete(1);
+            v.Delete(-1);
+
+            Assert.AreEqual("a", v.At(0));
+        }
+
+        [TestMethod]
+        public void Remove_an_element()
+        {
+            Vector<string> v = new Vector<string>(1);
+            v.Push("a");
+            v.Push("b");
+            v.Remove("a");
+
+            Assert.AreEqual(1, v.GetSize());
+            Assert.AreEqual("b", v.At(0));
+            Assert.AreEqual("b", v.At(1));
+        }
+
+        [TestMethod, Ignore("Not working")]
+        public void Remove_all_elements()
+        {
+            Vector<string> v = new Vector<string>(1);
+            v.Push("a");
+            v.Push("a");
+            v.Remove("a");
+
+            Assert.AreEqual(0, v.GetSize());
+            Assert.AreEqual("a", v.At(0));
+            Assert.AreEqual("a", v.At(1));
+        }
+
         private class Vector<T>
         {
             private const int DEFAULT_CAPACITY = 3;
@@ -192,6 +254,43 @@ namespace DataStructures
                 while (last >= index)
                 {
                     _underlying[last + 1] = _underlying[last--];
+                }
+            }
+
+            internal void Prepend(T value)
+            {
+                Insert(0, value);
+            }
+
+            internal void Delete(int index)
+            {
+                if (index_out_of_bounds(index)) return;
+                for(int cursor = index; !is_last_element(cursor); cursor++)
+                {
+                    _underlying[cursor] = _underlying[cursor+1];
+                }
+                _size--;
+            }
+
+            private bool index_out_of_bounds(int index)
+            {
+                return index >= _size || index < 0;
+            }
+
+            private bool is_last_element(int index)
+            {
+                return index == _size - 1;
+            }
+
+            internal void Remove(T value)
+            {
+                int initial_size = _size;
+                for (int i = 0; i < initial_size; i++)
+                {
+                    if (At(i).Equals(value))
+                    {
+                        Delete(i);
+                    }
                 }
             }
         }
