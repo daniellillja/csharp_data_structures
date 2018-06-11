@@ -157,7 +157,7 @@ namespace DataStructures
             Assert.AreEqual("b", v.At(1));
         }
 
-        [TestMethod, Ignore("Not working")]
+        [TestMethod]
         public void Remove_all_elements()
         {
             Vector<string> v = new Vector<string>(1);
@@ -265,9 +265,9 @@ namespace DataStructures
             internal void Delete(int index)
             {
                 if (index_out_of_bounds(index)) return;
-                for(int cursor = index; !is_last_element(cursor); cursor++)
+                for (int cursor = index; !is_last_element(cursor); cursor++)
                 {
-                    _underlying[cursor] = _underlying[cursor+1];
+                    _underlying[cursor] = _underlying[cursor + 1];
                 }
                 _size--;
             }
@@ -284,8 +284,7 @@ namespace DataStructures
 
             internal void Remove(T value)
             {
-                int initial_size = _size;
-                for (int i = 0; i < initial_size; i++)
+                for (int i = _size - 1; i >= 0; i--)
                 {
                     if (At(i).Equals(value))
                     {
