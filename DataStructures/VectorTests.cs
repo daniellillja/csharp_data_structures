@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataStructures
@@ -170,6 +171,24 @@ namespace DataStructures
             Assert.AreEqual("a", v.At(1));
         }
 
+        [TestMethod]
+        public void Find_an_element()
+        {
+            Vector<string> v = new Vector<string>(1);
+            v.Push("a");
+            v.Push("b");
+            v.Push("c");
+            Assert.AreEqual(1, v.Find("b"));
+        }
+
+        [TestMethod]
+        public void Find_returns_neg1_when_cannot_find()
+        {
+            Vector<string> v = new Vector<string>(1);
+            v.Push("a");
+            Assert.AreEqual(-1, v.Find("b"));
+        }
+
         private class Vector<T>
         {
             private const int DEFAULT_CAPACITY = 3;
@@ -291,6 +310,19 @@ namespace DataStructures
                         Delete(i);
                     }
                 }
+            }
+
+            internal int Find(T value)
+            {
+                for (int i = 0; i < _size; i++)
+                {
+                    if (At(i).Equals(value))
+                    {
+                        return i;
+                    }
+                }
+
+                return -1;
             }
         }
     }
