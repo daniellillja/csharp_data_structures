@@ -20,22 +20,6 @@ namespace DataStructures.LinkedList
             return Count == 0;
         }
 
-        public void Add(int item)
-        {
-            if (IsEmpty())
-            {
-                _head = new LinkedListNode(item);
-                _tail = _head;
-            }
-            else if (_head == _tail)
-            {
-                _tail = new LinkedListNode(item);
-                _head.Next = _tail;
-            }
-
-            _count++;
-        }
-
         class LinkedListNode
         {
             public int Key { get; set; }
@@ -52,7 +36,8 @@ namespace DataStructures.LinkedList
 
         public int ValueAt(int index)
         {
-            if (IsEmpty()) throw new ArgumentOutOfRangeException();
+            if (index >= _count) throw new ArgumentOutOfRangeException();
+            if (index == 0) return _head.Key;
 
             LinkedListNode cursor = _head;
             var cursorIndex = 0;
@@ -84,6 +69,28 @@ namespace DataStructures.LinkedList
             _head = _head.Next;
             _count--;
             return frontValue;
+        }
+
+        internal void PushBack(int value)
+        {
+            if (IsEmpty())
+            {
+                _head = new LinkedListNode(value);
+            }
+            else
+            {
+                var newTail = new LinkedListNode(value);
+                if(_tail == null)
+                {
+                    _tail = newTail;
+                    _head.Next = _tail;
+                }
+                else
+                {
+                _tail.Next = newTail;
+                }
+            }
+            _count++;
         }
     }
 }

@@ -27,10 +27,12 @@ namespace DataStructures.LinkedList
         }
 
         [TestMethod]
-        public void Add_increases_count_by_1()
+        public void PushFront_increases_count_by_1()
         {
-            _emptyList.Add(1);
+            _emptyList.PushFront(1);
             Assert.AreEqual(1, _emptyList.Count);
+            _emptyList.PushBack(1);
+            Assert.AreEqual(2, _emptyList.Count);
         }
 
         [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
@@ -42,17 +44,17 @@ namespace DataStructures.LinkedList
         [TestMethod]
         public void ValueAt_returns_head_key_at_index_0()
         {
-            _emptyList.Add(1);
+            _emptyList.PushFront(1);
             Assert.AreEqual(1, _emptyList.ValueAt(0));
         }
 
         [TestMethod]
-        public void ValueAt_returns_correct_key_at_index_1()
+        public void ValueAt_returns_correct_keys()
         {
-            _emptyList.Add(1);
+            _emptyList.PushBack(1);
             Assert.AreEqual(1, _emptyList.ValueAt(0));
 
-            _emptyList.Add(2);
+            _emptyList.PushBack(2);
             Assert.AreEqual(2, _emptyList.ValueAt(1));
         }
 
@@ -74,6 +76,16 @@ namespace DataStructures.LinkedList
             Assert.AreEqual(2, _emptyList.PopFront());
             Assert.AreEqual(1, _emptyList.PopFront());
             Assert.IsTrue(_emptyList.IsEmpty());
+        }
+
+        [TestMethod]
+        public void PushBack_add_item_to_end()
+        {
+            _emptyList.PushBack(1);
+            Assert.IsFalse(_emptyList.IsEmpty());
+            Assert.AreEqual(1, _emptyList.ValueAt(0));
+            _emptyList.PushBack(2);
+            Assert.AreEqual(2, _emptyList.ValueAt(1));
         }
     }
 }
