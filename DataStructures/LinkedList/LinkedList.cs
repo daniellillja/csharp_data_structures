@@ -87,10 +87,20 @@ namespace DataStructures.LinkedList
                 }
                 else
                 {
-                _tail.Next = newTail;
+                    _tail.Next = newTail;
                 }
             }
             _count++;
+        }
+
+        internal int PopBack()
+        {
+            _count--;
+            if (_tail == null)
+            {
+                return _head.Key;
+            }
+            return _tail.Key;
         }
     }
 }

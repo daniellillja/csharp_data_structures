@@ -87,5 +87,18 @@ namespace DataStructures.LinkedList
             _emptyList.PushBack(2);
             Assert.AreEqual(2, _emptyList.ValueAt(1));
         }
+
+        [TestMethod]
+        public void PopBack_removes_end_item_and_returns_value()
+        {
+            _emptyList.PushBack(1);
+            Assert.AreEqual(1, _emptyList.PopBack());
+            Assert.IsTrue(_emptyList.IsEmpty());
+
+            _emptyList.PushBack(1);
+            _emptyList.PushBack(2);
+            Assert.AreEqual(2, _emptyList.PopBack());
+            Assert.IsFalse(_emptyList.IsEmpty());
+        }
     }
 }
