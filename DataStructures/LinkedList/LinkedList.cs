@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataStructures.LinkedList
 {
-    internal class LinkedList : ICollection<int>
+    internal class LinkedList
     {
         private int _count;
         private LinkedListNode _head;
@@ -50,7 +50,7 @@ namespace DataStructures.LinkedList
             }
         }
 
-        public int At(int index)
+        public int ValueAt(int index)
         {
             if (IsEmpty()) throw new ArgumentOutOfRangeException();
 
@@ -65,34 +65,25 @@ namespace DataStructures.LinkedList
             return cursor.Key;
         }
 
-        public void Clear()
+        internal void PushFront(int value)
         {
-            throw new NotImplementedException();
+            if (IsEmpty())
+            {
+                _head = new LinkedListNode(value);
+            }
+            else
+            {
+                _head = new LinkedListNode(value, _head);
+            }
+            _count++;
         }
 
-        public bool Contains(int item)
+        internal int PopFront()
         {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(int[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerator<int> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(int item)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
+            var frontValue = _head.Key;
+            _head = _head.Next;
+            _count--;
+            return frontValue;
         }
     }
 }
